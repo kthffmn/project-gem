@@ -8,6 +8,7 @@ module ProjectGenerator
     attr_reader :template_type, :project_name, :git
 
     TEMPLATES = ["ruby-method", "ruby-class"]
+    EXTENTION_DICT = {"ruby" => "rb"}
 
     def initialize(template_type, project_name, git)
       @template_type = template_type
@@ -56,15 +57,20 @@ module ProjectGenerator
       `git init`
     end
 
+    def language
+      first_word(template_type)
+    end
+
+    def get_extention
+      EXTENTION_DICT[language]
+    end
+
     def git_add_commit_push
+      `bundle install`
       `git add .`
       `git commit -m "set up structure"`
-      `reposit #{project_name}`
-      sleep(3)
-      binding.pry
-      `git remote add origin #{Clipboard.paste}`
-      `git push origin master`
       `subl .`
+      `subl lib/#{formatted_project_name}.#{get_extention}`
     end
 
     def edit_readme

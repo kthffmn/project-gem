@@ -1,9 +1,6 @@
 #!/usr/bin/env ruby
 
 require_relative "../config/environment"
-require 'optparse'
-require 'clipboard'
-require 'pry'
 
 git = nil
 

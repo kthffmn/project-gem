@@ -20,7 +20,7 @@ describe '%{class_name}' do
   describe '#initialize' do
     context 'with a length and width' do
       it 'does not raise an error' do
-        expect { %{class_name}.new(2,3) }.to_not raise_error
+        expect { %{class_name}.new(2,3) }.to be_a(%{class_name})
       end
       it 'sets length and width' do
         expect(instance.length).to eq(2)
@@ -29,7 +29,7 @@ describe '%{class_name}' do
     end
     context 'with only a length' do
       it 'raises an error' do
-        expect { %{class_name}.new(2) }.to raise_error
+        expect { %{class_name}.new(2) }.to raise_error(ArgumentError)
       end
     end
   end

@@ -1,7 +1,7 @@
 class %{class_name}
 
   # constant
-  SHAPE_DICT = {3: 'triangle', 4: 'quadrilateral', 5: 'pentagon'}
+  SHAPE_DICT = {3 => 'triangle', 4 => 'quadrilateral', 5 => 'pentagon'}
 
   # class method
   def self.shape_name(sides)
