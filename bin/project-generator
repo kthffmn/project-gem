@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require_relative "../config/environment"
+require 'optparse'
+
+git = nil
+
+my_banner = <<-EOS
+  Usage: project-generator <project-name>
+
+  Project name format: <project-name> (separated by dashes)
+
+EOS
+
+OptionParser.new do |opts|
+  opts.banner = my_banner
+  opts.on("-g", "--git", "Initialize git when template is generated") do |g|
+    git = g
+  end
+end.parse!
+
+if !ARGV[0] || !ARGV[1]
+  puts my_banner
+elsif !ProjectGenerator::TemplateMaker::TEMPLATES.include?(ARGV[0])
+  puts my_banner
+else
+  ProjectGenerator::TemplateMaker.run(ARGV[0], git)
+end
