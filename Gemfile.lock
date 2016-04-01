@@ -1,7 +1,19 @@
 PATH
-  remote: .
+  remote: 
   specs:
-    project-generator (0.0.0)
+    project-generator (0.1.2)
+
+GEM
+  remote: https://api.rubygems.org/
+  specs:
+    bundler (1.12.0.rc)
+      automatiek (~> 0.1.0)
+      mustache (= 0.99.6)
+      rake (~> 10.0)
+      rdiscount (~> 2.1.8)
+      ronn (~> 0.7.3)
+      rspec (~> 3.0)
+    daemons (1.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -27,9 +39,12 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.6)
+  daemons (= 1.1.0)
+  diff-lcs (>= 1.2.0, < 2.0)
   project-generator!
-  rake
+  rake (>= 0)
   rspec
-
-BUNDLED WITH
-   1.10.6
+  rspec-core (~> 3.4.0)
+  rspec-expectations (~> 3.4.0)
+  rspec-mocks (~> 3.4.0)
+  rspec-support (~> 3.4.0)

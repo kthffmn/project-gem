@@ -19,8 +19,8 @@ describe '%{class_name}' do
 
   describe '#initialize' do
     context 'with a length and width' do
-      it 'does not raise an error' do
-        expect { %{class_name}.new(2,3) }.to be_a(%{class_name})
+      it 'returns instance of %{class_name}' do
+        expect(%{class_name}.new(2,3)).to be_a(%{class_name})
       end
       it 'sets length and width' do
         expect(instance.length).to eq(2)
