@@ -17,6 +17,10 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.add_runtime_dependency "daemons", ["= 1.1.0"]
+  spec.add_runtime_dependency "clipboard"
+  spec.add_runtime_dependency "ffi"
+  spec.add_runtime_dependency "pry"
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"
 end

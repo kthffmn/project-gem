@@ -2,13 +2,19 @@
 
 require_relative "../config/environment"
 require 'optparse'
+require 'clipboard'
+require 'pry'
 
 git = nil
 
 my_banner = <<-EOS
-  Usage: project-generator <project-name>
+  Usage: project-generator <template-type> <project-name>
 
-  Project name format: <project-name> (separated by dashes)
+  Project names should be separated by dashes.
+
+  Available templates:
+  1. ruby-method
+  2. ruby-class
 
 EOS
 
@@ -24,5 +30,5 @@ if !ARGV[0] || !ARGV[1]
 elsif !ProjectGenerator::TemplateMaker::TEMPLATES.include?(ARGV[0])
   puts my_banner
 else
-  ProjectGenerator::TemplateMaker.run(ARGV[0], git)
+  ProjectGenerator::TemplateMaker.run(ARGV[0], ARGV[1], git)
 end

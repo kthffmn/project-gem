@@ -7,29 +7,39 @@ module ProjectGenerator
 
     attr_reader :template_type, :project_name, :git
 
-    def initialize(project_name, git)
-      @template_type = "ruby"
+    TEMPLATES = ["ruby-method", "ruby-class"]
+
+    def initialize(template_type, project_name, git)
+      @template_type = template_type
       @project_name = project_name
       @git = git
     end
 
-    def self.run(project_name, git)
-      new(project_name, git).create
+    def self.run(template_type, project_name, git)
+      new(template_type, project_name, git).create
+    end
+
+    def run_git
+      !git.nil?
     end
 
     def create
       copy
       name_lab
       FileUtils.cd("#{project_name}") do
-        git_init if !git.nil?
+        git_init if run_git
         edit_readme
-        if template_type == "ruby"
+        if first_word(template_type) == "ruby"
+          if template_type == "ruby-class"
+            ruby_class_helper
+          end
           touch_spec
           bundle_init
-          fundamental_helper
+          ruby_helper
         else
           js_helper
         end
+        git_add_commit_push if run_git
       end
       success_message
     end
@@ -44,6 +54,17 @@ module ProjectGenerator
 
     def git_init
       `git init`
+    end
+
+    def git_add_commit_push
+      `git add .`
+      `git commit -m "set up structure"`
+      `reposit #{project_name}`
+      sleep(3)
+      binding.pry
+      `git remote add origin #{Clipboard.paste}`
+      `git push origin master`
+      `subl .`
     end
 
     def edit_readme
@@ -70,14 +91,15 @@ module ProjectGenerator
       end
     end
 
-    def change_filename(path, filename, extension)
+    def change_filename(path, filename, extension, new_name)
+      new_name = extension ? "#{new_name}.#{extension}": "#{new_name}"
       FileUtils.cd(path) do
-        File.rename(filename, "#{formatted_project_name}.#{extension}")
+        File.rename(filename, new_name)
       end
     end
 
-    def edit_file(file, text)
-      new_rr = IO.read(file) % { file_name: text }
+    def edit_file(file, block)
+      new_rr = IO.read(file) % block
       File.open(file, 'w') { |f| f.write(new_rr) }
     end
 
@@ -90,6 +112,18 @@ module ProjectGenerator
       FileUtils.cd("#{project_name}") do
         puts "#{`tree`}"
       end
+    end
+
+    def first_word(hyphenated_compound)
+      hyphenated_compound.match(/^(.*?)-/).captures[0]
+    end
+
+    def camel_case_class_name
+      project_name.split('-').map(&:capitalize).join
+    end
+
+    def snake_case_class_name
+      formatted_project_name
     end
   end
 end
