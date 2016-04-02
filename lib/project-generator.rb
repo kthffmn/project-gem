@@ -75,7 +75,7 @@ module ProjectGenerator
       `git commit -m "set up structure"`
       `reposit #{project_name}`
       `git remote add origin git@github.com:#{username}/#{project_name}.git`
-      `git push origin master`
+      `git push -u origin master`
       `subl .`
       `subl lib/#{formatted_project_name}.#{get_extention}`
     end
