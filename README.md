@@ -1,28 +1,29 @@
 # Project Generator
 
-A gem for generating projects.
+A gem for generating TDD projects.
 
 ## Usage
 
-`project-generator <project-name>`
+#### Install and Configure Reposit Gem
 
-### With Git
+First install the [Reposit](https://github.com/loganhasson/reposit) gem.
 
-Use the command above but add the flag `-g` to create a project with an initialized git repository.
+`gem install reposit`
 
-`project-generator <project-name> -g`
+Then visit the [token page of your GitHub account](https://github.com/settings/tokens) and click `Generate new token`. Make sure your new token has access to repos.
 
-## Project Name
+Then run `reposit --setup`. You will be prompted to enter your GitHub username and the token.
 
-The project-name refers to the name of the project (example: `count-min-sketch`).
+#### Using Project Generator
 
-## Reposit
+To use this gem, select a template (`ruby-method` or `ruby-class`) and the name of your new project. This name should be separated by dashes (example: `count-min-sketch`).
 
-If Reposit is installed on your machine, after creating the project, run `reposit <project-name>` followed by `git remote add origin < command + V >`.
+Then run:
 
-## Handy Steps
+`project-generator <project-type> <project-name>`
 
-1. `project-generator <project-name> -g`
-2. `reposit <project-name>`
-3. `git remote add origin < command + V >`
-4. `git push origin master`
+If you'd like to also create a git repo, an initial commit, and push the structure up to GitHub, add the `-g` flag:
+
+`project-generator <project-type> <project-name> -g`
+
+Once you see the success message and printed out file structure, you can `cd` into the directory and start coding!
