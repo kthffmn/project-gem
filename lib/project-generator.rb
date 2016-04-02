@@ -65,10 +65,17 @@ module ProjectGenerator
       EXTENTION_DICT[language]
     end
 
+    def username
+      `head -1 ~/.reposit`.strip
+    end
+
     def git_add_commit_push
       `bundle install`
       `git add .`
       `git commit -m "set up structure"`
+      `reposit #{project_name}`
+      `git remote add origin git@github.com:#{username}/#{project_name}.git`
+      `git push origin master`
       `subl .`
       `subl lib/#{formatted_project_name}.#{get_extention}`
     end
