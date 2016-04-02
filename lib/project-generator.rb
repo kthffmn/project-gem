@@ -7,8 +7,8 @@ module ProjectGenerator
 
     attr_reader :template_type, :project_name, :git
 
-    TEMPLATES = ["ruby-method", "ruby-class"]
-    EXTENTION_DICT = {"ruby" => "rb"}
+    TEMPLATES = ["ruby-method", "ruby-class", "java-class"]
+    EXTENTION_DICT = {ruby: "rb", java: "java"}
 
     def initialize(template_type, project_name, git)
       @template_type = template_type
@@ -24,12 +24,17 @@ module ProjectGenerator
       !git.nil?
     end
 
+    def rename_gitignore
+      change_filename('.', 'gitignore', nil, '.gitignore')
+    end
+
     def create
       copy
       name_lab
       FileUtils.cd("#{project_name}") do
         git_init if run_git
         edit_readme
+        rename_gitignore
         if first_word(template_type) == "ruby"
           if template_type == "ruby-class"
             ruby_class_helper
@@ -62,7 +67,7 @@ module ProjectGenerator
     end
 
     def get_extention
-      EXTENTION_DICT[language]
+      EXTENTION_DICT[language.to_sym]
     end
 
     def username

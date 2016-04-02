@@ -1,7 +1,7 @@
 module TemplateHelper
   def ruby_helper
     change_filename('lib/', 'file.rb', 'rb', formatted_project_name)
-    change_filename('.', 'rspec.md', nil, '.rspec')
+    change_filename('.', 'rspec', nil, '.rspec')
     edit_file('spec/spec_helper.rb', { file_name: formatted_project_name })
     edit_gemfile
   end
