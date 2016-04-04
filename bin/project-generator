@@ -12,7 +12,7 @@ my_banner = <<-EOS
   Available templates:
   1. ruby-method
   2. ruby-class
-
+  3. java-class
 EOS
 
 OptionParser.new do |opts|

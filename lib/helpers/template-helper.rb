@@ -12,11 +12,10 @@ module TemplateHelper
     change_filename('spec/', 'classname_spec.rb', 'rb', "#{snake_case_class_name}_spec")
   end
 
-  def js_helper
-    change_filename('js/', 'file.js', 'js', formatted_project_name)
-  end
-
-  def fe_helper
-    edit_file('index.html', formatted_name)
+  def java_class_helper
+    edit_file('src/main/java/ClassName.java', { class_name: camel_case_class_name })
+    edit_file('src/test/java/ClassNameTest.java', { class_name: camel_case_class_name })
+    change_filename('src/test/java/', 'ClassNameTest.java', 'java', "#{camel_case_class_name}Test")
+    change_filename('src/main/java/ClassName.java', 'ClassName.java', 'java', "#{camel_case_class_name}")
   end
 end

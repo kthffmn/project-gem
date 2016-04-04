@@ -32,22 +32,26 @@ module ProjectGenerator
       copy
       name_lab
       FileUtils.cd("#{project_name}") do
-        git_init if run_git
         edit_readme
         rename_gitignore
         if first_word(template_type) == "ruby"
-          if template_type == "ruby-class"
-            ruby_class_helper
-          end
-          touch_spec
-          bundle_init
-          ruby_helper
-        else
-          js_helper
+          config_ruby_template
+        elsif first_word(template_type) == "java"
+          config_java_template
         end
-        git_add_commit_push if run_git
+        setup_git if run_git
       end
       success_message
+    end
+
+    def config_ruby_template
+      ruby_class_helper if template_type == "ruby-class"
+      bundle_init
+      ruby_helper
+    end
+
+    def config_java_template
+      java_class_helper
     end
 
     def copy
@@ -74,15 +78,25 @@ module ProjectGenerator
       `head -1 ~/.reposit`.strip
     end
 
-    def git_add_commit_push
-      `bundle install`
+    def setup_git
+      `git init`
       `git add .`
       `git commit -m "set up structure"`
       `reposit #{project_name}`
       `git remote add origin git@github.com:#{username}/#{project_name}.git`
       `git push -u origin master`
       `subl .`
-      `subl lib/#{formatted_project_name}.#{get_extention}`
+      `subl #{main_class_file_path}`
+    end
+
+    def main_class_file_path
+      if first_word(template_type) == "ruby"
+        "lib/#{formatted_project_name}.#{get_extention}"
+      elsif first_word(template_type) == "java"
+        "src/main/java/#{camel_case_class_name}.#{get_extention}"
+      else
+        "."
+      end
     end
 
     def edit_readme
@@ -101,12 +115,6 @@ module ProjectGenerator
 
     def bundle_init
       `bundle init`
-    end
-
-    def touch_spec
-      FileUtils.cd("spec/") do
-        `touch #{formatted_project_name}_spec.rb`
-      end
     end
 
     def change_filename(path, filename, extension, new_name)

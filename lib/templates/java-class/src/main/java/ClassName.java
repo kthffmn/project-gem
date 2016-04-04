@@ -4,8 +4,8 @@
  *
  * @author katie, @date 4/2/16 4:56 PM
  */
-public class Library {
-    public boolean someLibraryMethod() {
+public class %{class_name} {
+    public boolean some%{class_name}Method() {
         return true;
     }
 }
