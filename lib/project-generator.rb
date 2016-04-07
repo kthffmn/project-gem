@@ -56,6 +56,7 @@ module ProjectGenerator
     end
 
     def open_files
+      `subl .`
       `subl #{main_class_test_file_path}`
       `subl #{main_class_file_path}`
     end
@@ -149,6 +150,7 @@ module ProjectGenerator
     end
 
     def edit_file(file, block)
+      puts "file: #{file}"
       new_rr = IO.read(file) % block
       File.open(file, 'w') { |f| f.write(new_rr) }
     end

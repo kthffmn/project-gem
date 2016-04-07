@@ -1,8 +1,7 @@
 module GemfileHelper
   def edit_gemfile
     File.open("Gemfile", 'a') do |f|
-      f << "\ngem 'rspec'
-gem 'pry'"
+      f << "\nruby '2.3.0'\ngem 'rspec'\ngem 'pry'"
     end
   end
 

@@ -16,7 +16,7 @@ public class %{class_name} {
     public static Optional<String> getShape(int numOfSides) {
         String shape = SHAPES.get(numOfSides);
         if (shape == null) {
-          return Optional.absent();
+          return Optional.empty();
         }
         else {
           return Optional.of(shape);
@@ -42,9 +42,5 @@ public class %{class_name} {
 
     public int getArea() {
         return length * width;
-    }
-
-    public String toEnglish() {
-        return String.format("The room is %l by %w", length, width);
     }
 }
