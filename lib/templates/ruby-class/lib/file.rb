@@ -1,3 +1,5 @@
+require 'pry'
+
 class %{class_name}
 
   # constant
@@ -5,7 +7,7 @@ class %{class_name}
 
   # class method
   def self.shape_name(sides)
-    SHAPE_DICT.include?(sides) ? SHAPE_DICT[sides] : 'unknown'
+    SHAPE_DICT.include?(sides) ? SHAPE_DICT[sides] : nil
   end
 
   # reader

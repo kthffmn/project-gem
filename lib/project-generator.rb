@@ -85,7 +85,7 @@ module ProjectGenerator
       `reposit #{project_name}`
       `git remote add origin git@github.com:#{username}/#{project_name}.git`
       `git push -u origin master`
-      `subl .`
+      `subl #{main_class_test_file_path}`
       `subl #{main_class_file_path}`
     end
 
@@ -94,6 +94,16 @@ module ProjectGenerator
         "lib/#{formatted_project_name}.#{get_extention}"
       elsif first_word(template_type) == "java"
         "src/main/java/#{camel_case_class_name}.#{get_extention}"
+      else
+        "."
+      end
+    end
+
+    def main_class_test_file_path
+      if first_word(template_type) == "ruby"
+        "spec/#{formatted_project_name}_spec.#{get_extention}"
+      elsif first_word(template_type) == "java"
+        "src/test/java/#{camel_case_class_name}Test.#{get_extention}"
       else
         "."
       end

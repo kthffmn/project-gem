@@ -10,9 +10,9 @@ describe '%{class_name}' do
       end
     end
     context 'with a value is not in the dictionary' do
-      it 'returns unknown' do
-        expect(%{class_name}.shape_name(43)).to eq('unknown')
-        expect(%{class_name}.shape_name('a')).to eq('unknown')
+      it 'returns nil' do
+        expect(%{class_name}.shape_name(43)).to eq(nil)
+        expect(%{class_name}.shape_name('a')).to eq(nil)
       end
     end
   end
