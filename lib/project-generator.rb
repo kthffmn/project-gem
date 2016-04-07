@@ -9,6 +9,10 @@ module ProjectGenerator
 
     TEMPLATES = ["ruby-method", "ruby-class", "java-class"]
     EXTENTION_DICT = {ruby: "rb", java: "java"}
+    DOCS = {
+      ruby: "http://ruby-doc.org/core-2.3.0/",
+      java: "https://docs.oracle.com/javase/8/docs/api/allclasses-noframe.html"
+    }
 
     def initialize(template_type, project_name, git)
       @template_type = template_type
@@ -40,8 +44,20 @@ module ProjectGenerator
           config_java_template
         end
         setup_git if run_git
+        open_docs
+        open_files
       end
       success_message
+    end
+
+    def open_docs
+      webpage = DOCS[language.to_sym]
+      `/usr/bin/open -a "/Applications/Google Chrome.app" '#{webpage}'`
+    end
+
+    def open_files
+      `subl #{main_class_test_file_path}`
+      `subl #{main_class_file_path}`
     end
 
     def config_ruby_template
@@ -85,8 +101,6 @@ module ProjectGenerator
       `reposit #{project_name}`
       `git remote add origin git@github.com:#{username}/#{project_name}.git`
       `git push -u origin master`
-      `subl #{main_class_test_file_path}`
-      `subl #{main_class_file_path}`
     end
 
     def main_class_file_path
