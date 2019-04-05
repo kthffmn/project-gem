@@ -6,8 +6,8 @@ require 'project-generator/version.rb'
 Gem::Specification.new do |spec|
   spec.name          = "project-generator"
   spec.version       = ProjectGenerator::VERSION
-  spec.authors       = ["Arel English", "Amanda Himmelstoss", "Katie Hoffman"]
-  spec.email         = ["arel@flatironschool.com", "amanda@flatironschool.com", "ktahoffman@gmail.com"]
+  spec.authors       = ["Katie Hoffman"]
+  spec.email         = ["ktahoffman@gmail.com"]
   spec.summary       = %q{A project generator}
   spec.description   = %q{Generates projects based on templates}
   spec.homepage      = "https://www.github.com/kthffmn"
